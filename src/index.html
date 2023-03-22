@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/stencil-lib.esm.js"></script>
+    <script nomodule src="/build/stencil-lib.js"></script>
+  </head>
+  <body>
+    <first-component sentence="Voici la première phrase !">
+      La deuxième est un slot !
+    </first-component>
+    <snack-bar button="Okay" sentence="Voici le snack bar !"></snack-bar>
+    
+    <script>
+      const snacky = document.querySelector('snack-bar');
+      setTimeout(() => {
+        snacky.visible = true;
+      }, 2000);
+    </script>
+  </body>
+</html>

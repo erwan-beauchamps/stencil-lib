@@ -12,12 +12,13 @@
     <first-component sentence="Voici la première phrase !">
       La deuxième est un slot !
     </first-component>
+    <meteo-station></meteo-station>
     <snack-bar button="Okay" sentence="Voici le snack bar !"></snack-bar>
-    
+
     <script>
       const snacky = document.querySelector('snack-bar');
       setTimeout(() => {
-        snacky.visible = true;
+        snacky.open();
       }, 2000);
     </script>
   </body>

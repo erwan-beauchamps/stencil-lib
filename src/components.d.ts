@@ -9,6 +9,8 @@ export namespace Components {
     interface FirstComponent {
         "sentence": string;
     }
+    interface MeteoStation {
+    }
     interface MyComponent {
         /**
           * The first name
@@ -25,6 +27,7 @@ export namespace Components {
     }
     interface SnackBar {
         "button": string;
+        "open": () => Promise<void>;
         "sentence": string;
         "visible": boolean;
     }
@@ -35,6 +38,12 @@ declare global {
     var HTMLFirstComponentElement: {
         prototype: HTMLFirstComponentElement;
         new (): HTMLFirstComponentElement;
+    };
+    interface HTMLMeteoStationElement extends Components.MeteoStation, HTMLStencilElement {
+    }
+    var HTMLMeteoStationElement: {
+        prototype: HTMLMeteoStationElement;
+        new (): HTMLMeteoStationElement;
     };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
@@ -50,6 +59,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "first-component": HTMLFirstComponentElement;
+        "meteo-station": HTMLMeteoStationElement;
         "my-component": HTMLMyComponentElement;
         "snack-bar": HTMLSnackBarElement;
     }
@@ -57,6 +67,8 @@ declare global {
 declare namespace LocalJSX {
     interface FirstComponent {
         "sentence"?: string;
+    }
+    interface MeteoStation {
     }
     interface MyComponent {
         /**
@@ -79,6 +91,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "first-component": FirstComponent;
+        "meteo-station": MeteoStation;
         "my-component": MyComponent;
         "snack-bar": SnackBar;
     }
@@ -88,6 +101,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "first-component": LocalJSX.FirstComponent & JSXBase.HTMLAttributes<HTMLFirstComponentElement>;
+            "meteo-station": LocalJSX.MeteoStation & JSXBase.HTMLAttributes<HTMLMeteoStationElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "snack-bar": LocalJSX.SnackBar & JSXBase.HTMLAttributes<HTMLSnackBarElement>;
         }

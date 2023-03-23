@@ -1,0 +1,27 @@
+:host {
+  border: 2px solid darkblue;
+  margin: 2rem;
+  padding: 1rem;
+  display: block;
+  width: 20rem;
+  max-width: 100%;
+}
+
+form button:focus {
+  outline: none;
+}
+
+form button {
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid darkblue;
+  background: darkblue;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover,
+form button:active {
+  background: darkcyan;
+  border-color: darkcyan;
+}

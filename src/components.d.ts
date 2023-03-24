@@ -10,6 +10,7 @@ export namespace Components {
         "sentence": string;
     }
     interface MeteoStation {
+        "city": string;
     }
     interface MyComponent {
         /**
@@ -69,6 +70,7 @@ declare namespace LocalJSX {
         "sentence"?: string;
     }
     interface MeteoStation {
+        "city"?: string;
     }
     interface MyComponent {
         /**

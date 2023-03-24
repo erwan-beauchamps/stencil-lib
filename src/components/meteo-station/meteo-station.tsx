@@ -1,4 +1,4 @@
-import { Component, State, Element, h } from '@stencil/core';
+import { Component, State, h, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'meteo-station',
@@ -14,13 +14,28 @@ export class MeteoStation {
   
   @State() error: string;
 
+  @Prop({mutable: true, reflect: true}) city: string;
+
+  @Watch('city')
+  cityChanged(newValue: string, oldValue: string) {
+    if (newValue !== oldValue) {
+      this.cityValue = newValue;
+      this.fetchMeteo(newValue);
+    }
+  }
+
   onInpuCity(ev: Event) {
+    console.log('onInpuCity');
     this.cityValue = (ev.target as HTMLInputElement).value;
   }
 
   onFetchMeteo(event: Event) {
-
+    console.log('onFetchMeteo');
     event.preventDefault();
+    this.city = this.cityValue;
+  }
+
+  fetchMeteo(cityParam: string) {
     fetch(
       'https://angular-initiation-default-rtdb.firebaseio.com/meteo.json'
     )
@@ -28,16 +43,44 @@ export class MeteoStation {
         return res.json();
       })
       .then(parsedRes => {
-        if (!parsedRes[this.cityValue]) {
+        if (!parsedRes[cityParam]) {
           throw new Error('Aucune ville trouvée');
         }
-        this.meteoTemp = +parsedRes[this.cityValue];
+        this.meteoTemp = +parsedRes[cityParam];
         this.error = null;
       })
       .catch(err => {
         console.log(err);
         this.error = err.message;
       });
+  }
+
+  componentDidLoad() {
+    console.log('componentDidLoad');
+    if (this.city) {
+      this.cityValue = this.city;
+      this.fetchMeteo(this.city);
+    }
+  }
+
+  componentWillLoad() {
+    console.log('componentWillLoad');
+  }
+
+  componentWillUpdate() {
+    console.log('componentWillUpdate');
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+
+  componentDidRender() {
+    console.log('componentDidRender');
+  }
+
+  disconnectedCallback() {
+    console.log('disconnectedCallback');
   }
 
   render() {

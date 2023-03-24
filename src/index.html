@@ -12,14 +12,16 @@
     <first-component sentence="Voici la première phrase !">
       La deuxième est un slot !
     </first-component>
+    <city-station></city-station>
     <meteo-station city="paris"></meteo-station>
     <snack-bar button="Okay" sentence="Voici le snack bar !"></snack-bar>
 
     <script>
-      const snacky = document.querySelector('snack-bar');
-      setTimeout(() => {
-        snacky.open();
-      }, 2000);
+      const stations = document.querySelector('city-station');
+      console.log('stations', stations);
+      stations.addEventListener('citySelected', event => {
+        console.log('citySelected event', event);
+      })
     </script>
   </body>
 </html>

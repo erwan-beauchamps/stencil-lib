@@ -1,4 +1,4 @@
-import { Component, State, h, Prop, Watch } from '@stencil/core';
+import { Component, State, h, Prop, Watch, Event, EventEmitter, Listen } from '@stencil/core';
 
 @Component({
   tag: 'meteo-station',
@@ -10,9 +10,12 @@ export class MeteoStation {
 
   @State() cityValue: string;
 
+  @Event() citySelected: EventEmitter<string>;
+
   cityInput: HTMLInputElement;
   
   @State() error: string;
+
 
   @Prop({mutable: true, reflect: true}) city: string;
 
@@ -25,14 +28,20 @@ export class MeteoStation {
   }
 
   onInpuCity(ev: Event) {
-    console.log('onInpuCity');
     this.cityValue = (ev.target as HTMLInputElement).value;
   }
 
   onFetchMeteo(event: Event) {
-    console.log('onFetchMeteo');
     event.preventDefault();
     this.city = this.cityValue;
+  }
+
+
+  @Listen('citySelected', {target: 'body'})
+  citySelectedListen(event: CustomEvent) {
+    if (event.detail && event.detail !== this.city) {
+      this.city = event.detail;
+    }
   }
 
   fetchMeteo(cityParam: string) {
@@ -56,31 +65,10 @@ export class MeteoStation {
   }
 
   componentDidLoad() {
-    console.log('componentDidLoad');
     if (this.city) {
       this.cityValue = this.city;
       this.fetchMeteo(this.city);
     }
-  }
-
-  componentWillLoad() {
-    console.log('componentWillLoad');
-  }
-
-  componentWillUpdate() {
-    console.log('componentWillUpdate');
-  }
-
-  componentDidUpdate() {
-    console.log('componentDidUpdate');
-  }
-
-  componentDidRender() {
-    console.log('componentDidRender');
-  }
-
-  disconnectedCallback() {
-    console.log('disconnectedCallback');
   }
 
   render() {

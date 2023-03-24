@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface CityStation {
+    }
     interface FirstComponent {
         "sentence": string;
     }
@@ -33,7 +35,21 @@ export namespace Components {
         "visible": boolean;
     }
 }
+export interface CityStationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLCityStationElement;
+}
+export interface MeteoStationCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMeteoStationElement;
+}
 declare global {
+    interface HTMLCityStationElement extends Components.CityStation, HTMLStencilElement {
+    }
+    var HTMLCityStationElement: {
+        prototype: HTMLCityStationElement;
+        new (): HTMLCityStationElement;
+    };
     interface HTMLFirstComponentElement extends Components.FirstComponent, HTMLStencilElement {
     }
     var HTMLFirstComponentElement: {
@@ -59,6 +75,7 @@ declare global {
         new (): HTMLSnackBarElement;
     };
     interface HTMLElementTagNameMap {
+        "city-station": HTMLCityStationElement;
         "first-component": HTMLFirstComponentElement;
         "meteo-station": HTMLMeteoStationElement;
         "my-component": HTMLMyComponentElement;
@@ -66,11 +83,15 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface CityStation {
+        "onCitySelected"?: (event: CityStationCustomEvent<string>) => void;
+    }
     interface FirstComponent {
         "sentence"?: string;
     }
     interface MeteoStation {
         "city"?: string;
+        "onCitySelected"?: (event: MeteoStationCustomEvent<string>) => void;
     }
     interface MyComponent {
         /**
@@ -92,6 +113,7 @@ declare namespace LocalJSX {
         "visible"?: boolean;
     }
     interface IntrinsicElements {
+        "city-station": CityStation;
         "first-component": FirstComponent;
         "meteo-station": MeteoStation;
         "my-component": MyComponent;
@@ -102,6 +124,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "city-station": LocalJSX.CityStation & JSXBase.HTMLAttributes<HTMLCityStationElement>;
             "first-component": LocalJSX.FirstComponent & JSXBase.HTMLAttributes<HTMLFirstComponentElement>;
             "meteo-station": LocalJSX.MeteoStation & JSXBase.HTMLAttributes<HTMLMeteoStationElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
